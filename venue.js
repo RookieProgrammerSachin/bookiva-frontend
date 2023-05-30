@@ -1,9 +1,31 @@
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./config.js";
+import { Calendar } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
 
 feather.replace();
 
 var venueData;
+
+const renderCalendar = () => {    
+    const calendarEl = document.querySelector(".venue-calendar > div");
+
+    let calendar = new Calendar(calendarEl, {
+    plugins: [ dayGridPlugin, timeGridPlugin, listPlugin ],
+    initialView: 'dayGridMonth',
+    headerToolbar: {
+        left: 'prev,next today',
+        center: 'Reservations',
+        right: 'dayGridMonth,timeGridWeek,listWeek'
+    }
+    });
+
+    calendar.render();
+}
+
+renderCalendar();
 
 const getData = async () => {
 

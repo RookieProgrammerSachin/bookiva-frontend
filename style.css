@@ -450,7 +450,8 @@ form{
 .popup-details{
     display: grid;
     padding: 1rem;
-    grid-template-columns: 1fr 1.2fr 0.7fr;
+    gap: 2rem;
+    grid-template-columns: 1fr 1.2fr 0.6fr;
 }
 
 .booking-details{
@@ -504,6 +505,12 @@ form{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.venue-calendar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .feather-check-circle{
