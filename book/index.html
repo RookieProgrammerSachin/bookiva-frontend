@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookiva - Halls</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/utility.css">
+    <link rel="stylesheet" href="/mobile.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <nav class="navv-main">
+        <div class="nav-main">
+            <div class="nav-img">
+                <img src="/logo.png" alt="">
+            </div>
+            <div class="nav-links">
+                <a href="/" class="nav-link ff-inter fs-2s">Home</a>
+                <a href="/venues/" class="nav-link ff-inter fs-2s">Browse</a>
+                <button class="user-nav br-m"><i data-feather="user"></i>  <i data-feather="chevron-down"></i></button>
+            </div>
+            <div class="user-menu user-menu-hidden">
+                <div class="user-menu-category">
+                    <a class="ff-inter fs-2s user-menu-link" href="/login/">Log in</a>
+                </div>
+                <hr class="user-menu-hr">
+                <a class="ff-inter fs-2s user-menu-link" href="#">Help</a>
+                <a class="ff-inter fs-2s user-menu-link" href="#">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="home-content form-content">
+        <div class="msg-box msg-box-hidden">
+        </div>
+        <h1 class="ff-inter hall-name"></h1>
+        <div style="display: flex;justify-content: center;align-items: center; width: 90%;"><img alt="" class="hall-image"></div>
+        <form class="booking-form" id="bruh" autocomplete="on">
+            <label for="email" class="fs-2s ff-inter  ">HOD Email Address *</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Enter HOD Email"
+                class="ff-inter fs-s book-input-box"
+                disabled
+                pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+                title="Invalid email address"
+              />
+              <label for="name" class="fs-2s ff-inter  "> HOD Name *</label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Enter HOD Name"
+                class="ff-inter fs-s book-input-box"
+              
+              />
+              <label for="num" class="fs-2s ff-inter  "> HOD Mobile Number *</label>
+              <input
+                inputmode="numeric"
+                type="tel"
+                name="num"
+                id="num"
+                placeholder="Enter HOD Mobile number"
+                class="ff-inter fs-s book-input-box"
+              
+                maxlength="10"
+                title = "Invalid phone number"
+                pattern="[6-9]{1}[0-9]{9}"
+              />
+              <br>
+              <label for="app-email" class="fs-2s ff-inter  "> Applicant Email *</label>
+              <input
+                type="email"
+                name="app-email"
+                id="app-email"
+                placeholder="Enter Applicant Email"
+                class="ff-inter fs-s book-input-box"
+              
+                pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+                title="Invalid email address"
+              />
+              <label for="app-name" class="fs-2s ff-inter  "> Applicant Name *</label>
+              <input
+                type="text"
+                name="app-name"
+                id="app-name"
+                placeholder="Enter Applicant Name"
+                class="ff-inter fs-s book-input-box"
+              
+              />
+              <label for="app-phone" class="fs-2s ff-inter  ">Applicant Phone Number *</label>
+              <input
+                inputmode="numeric"
+                type="tel"
+                name="app-phone"
+                id="app-phone"
+                placeholder="Enter Applicant Mobile Number"
+                class="ff-inter fs-s book-input-box"
+              
+                maxlength="10"
+                pattern="[6-9]{1}[0-9]{9}" title = "Invalid phone number"
+              />
+              <br>
+            <div class="form-date">
+              <div><label for="from-date" class="fs-2s ff-inter">Starting Date:*</label>
+              <input type="date" name="from-date" id="from-date" value="2023-05-26" required class="ff-inter fs-s book-input-box"></div>
+              <div><label for="end-date" class="fs-2s ff-inter">Ending Date:*</label>
+              <input type="date" name="end-date" id="end-date" value="2023-05-30" required class="ff-inter fs-s book-input-box"></div>
+            </div><!--remove value attr and add required attr to above inputs-->
+            <div class="form-date">
+                <div><label for="from-time" class="fs-2s ff-inter  ">Starting Time:*</label>
+                <input type="time" name="from-time" id="from-time" value="09:00" required class="ff-inter fs-s book-input-box"></div>
+                <div><label for="end-time" class="fs-2s ff-inter  ">Ending Time:*</label>
+                <input type="time" name="end-time" id="end-time" value="16:00" required class="ff-inter fs-s book-input-box"></div>
+            </div><!--remove value attr and add required attr to above inputs-->
+            <label for="purpose" class="ff-inter fs-2s">Purpose of booking:*</label>
+            <textarea name="purpose" id="purpose" cols="30" rows="10" class="ff-inter" style="padding: 1rem"></textarea>
+            <button type="submit" class="butt-main sign-in ff-inter fs-2s">Confirm booking</button>
+        </form>
+    </div>
+
+    <script type="module" src="/booking.js"></script>
+</body>
+</html>

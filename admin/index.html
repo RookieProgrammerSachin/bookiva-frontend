@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookiva - Halls</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/utility.css">
+    <link rel="stylesheet" href="/mobile.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" /> 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+</head>
+<body>
+    <nav class="navv-main">
+        <div class="nav-main">
+            <div class="nav-img">
+                <img src="/logo.png" alt="">
+            </div>
+            <div class="nav-links">
+                <a href="/" class="nav-link ff-inter fs-2s">Home</a>
+                <a href="#" class="nav-link ff-inter fs-2s">Browse</a>
+                <button class="user-nav br-m"><i data-feather="user"></i>  <i data-feather="chevron-down"></i></button>
+            </div>
+            <div class="user-menu user-menu-hidden">
+                <div class="user-menu-category">
+                    <a class="ff-inter fs-2s user-menu-link" href="/login/">Log in</a>
+                </div>
+                <hr class="user-menu-hr">
+                <a class="ff-inter fs-2s user-menu-link" href="#">Help</a>
+                <a class="ff-inter fs-2s user-menu-link" href="#">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="cards-container">
+        <div class="msg-box mgs-accden msg-box-hidden"></div>
+
+        <div class="hall-card">
+            <div class="hall-img">
+                <img src="https://uploads-ssl.webflow.com/6087aa810ab31f22c090aad8/627d0f37fa42093fddbf6ef2_confer-card__2.jpg" alt="alpha-hall">
+            </div>
+            <div class="hall-info ff-inter">
+                <div class="hall-name-star">
+                    <h3 class="hall-name"> Alpha Hall </h3>
+                    <h3 class="hall-rating">⭐ 4.4</h3>
+                </div>
+                <p><span class="fw-600"> Reserved by:</span> Muthuvel A</p>
+                <div style="display: grid;grid-template-columns: 1fr 1fr; gap: 1.4rem">
+                    <p><span class="fw-600"> Start date:</span> 12-05-2023</p>
+                    <p><span class="fw-600"> End date:</span> 18-05-2023</p>
+                </div>
+                <div style="display: grid;grid-template-columns: 1fr 1fr; gap: 1.4rem">
+                    <p><span class="fw-600"> Start time:</span> 09:00</p>
+                    <p><span class="fw-600"> End time:</span> 16:00</p>
+                </div>
+            </div>
+            <a href="#" class="butt-main details-btn ff-inter fs-s" data-venue="alpha-hall">DETAILS</a>
+        </div>
+
+        <div class="hall-card admin-card">
+            <div class="hall-img">
+                <img src="https://azcorporateinteriors.com/wp-content/uploads/6-Conference-And-Meeting-Room-Styles.jpg" alt="alpha-hall">
+            </div>
+            <div class="hall-info ff-inter">
+                <div class="hall-name-star">
+                    <h3 class="hall-name"> Alpha Hall </h3>
+                    <h3 class="hall-rating">⭐ 4.4</h3>
+                </div>
+                <p><span class="fw-600"> Reserved by:</span> Su Suganthi</p>
+                <div style="display: grid;grid-template-columns: 1fr 1fr; gap: 1.4rem">
+                    <p><span class="fw-600"> Start date:</span> 19-05-2023</p>
+                    <p><span class="fw-600"> End date:</span> 20-05-2023</p>
+                </div>
+                <div style="display: grid;grid-template-columns: 1fr 1fr; gap: 1.4rem">
+                    <p><span class="fw-600"> Start time:</span> 09:00</p>
+                    <p><span class="fw-600"> End time:</span> 15:00</p>
+                </div>
+            </div>
+            <a href="#" class="butt-main details-btn ff-inter fs-s" data-venue="alpha-hall">DETAILS</a>
+        </div>
+
+        <div class="hall-card">
+            <div class="hall-img">
+                <img src="https://uploads-ssl.webflow.com/6087aa810ab31f22c090aad8/627d0f37fa42093fddbf6ef2_confer-card__2.jpg" alt="alpha-hall">
+            </div>
+            <div class="hall-info ff-inter">
+                <div class="hall-name-star">
+                    <h3 class="hall-name"> Beta Hall </h3>
+                    <h3 class="hall-rating">⭐ 4.2</h3>
+                </div>
+                <p><span class="fw-600"> Reserved by:</span> Brindha Devi V</p>
+                <div style="display: grid;grid-template-columns: 1fr 1fr; gap: 1.4rem">
+                    <p><span class="fw-600"> Start date:</span> 12-06-2023</p>
+                    <p><span class="fw-600"> End date:</span> 18-06-2023</p>
+                </div>
+                <div style="display: grid;grid-template-columns: 1fr 1fr; gap: 1.4rem">
+                    <p><span class="fw-600"> Start time:</span> 09:00</p>
+                    <p><span class="fw-600"> End time:</span> 13:00</p>
+                </div>
+            </div>
+            <a href="#" class="butt-main details-btn ff-inter fs-s" data-venue="beta-hall">DETAILS</a>
+        </div>
+
+        <div class="overlay overlay-hidden"></div>
+        <div class="popup-modal-wrapper popup-hidden">
+        
+        </div>
+    </div>
+
+    <script type="module" src="/admin.js"></script>
+</body>
+</html>
