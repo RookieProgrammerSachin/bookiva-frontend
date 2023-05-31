@@ -6,15 +6,22 @@ feather.replace();
 
 var venueData;
 
-   
-flatpickr("#calendar", {
-    disable: ["2023-06-05", "2023-06-08"],
-    altInput: true,
-    minDate: "today",
-    maxDate: new Date().fp_incr(15),
-    inline: true,
-    dateFormat: "d-m-y",
-});
+const renderCalendar = async () => {
+    flatpickr("#calendar", {
+        disable: ["2023-06-05", "2023-06-08"],
+        altInput: true,
+        minDate: "today",
+        maxDate: new Date().fp_incr(15),
+        inline: true,
+        dateFormat: "d-m-y",
+    });
+
+    const venueReq = await fetch("https://fantastic-bull-life-jacket.cyclic.app/api/halls");
+    venueData = await venueReq.json();
+    console.log(venueData);
+}
+
+renderCalendar();
 
 const getData = async () => {
 
