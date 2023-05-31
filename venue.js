@@ -1,31 +1,20 @@
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./config.js";
-import { Calendar } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
+// import flatpickr from "flatpickr";
 
 feather.replace();
 
 var venueData;
 
-const renderCalendar = () => {    
-    const calendarEl = document.querySelector(".venue-calendar > div");
-
-    let calendar = new Calendar(calendarEl, {
-    plugins: [ dayGridPlugin, timeGridPlugin, listPlugin ],
-    initialView: 'dayGridMonth',
-    headerToolbar: {
-        left: 'prev,next today',
-        center: 'Reservations',
-        right: 'dayGridMonth,timeGridWeek,listWeek'
-    }
-    });
-
-    calendar.render();
-}
-
-renderCalendar();
+   
+flatpickr("#calendar", {
+    disable: ["2023-06-05", "2023-06-08"],
+    altInput: true,
+    minDate: "today",
+    maxDate: new Date().fp_incr(15),
+    inline: true,
+    dateFormat: "d-m-y",
+});
 
 const getData = async () => {
 

@@ -12,12 +12,9 @@
     "vite": "^4.3.2"
   },
   "dependencies": {
-    "@fullcalendar/core": "^6.1.8",
-    "@fullcalendar/daygrid": "^6.1.8",
-    "@fullcalendar/list": "^6.1.8",
-    "@fullcalendar/timegrid": "^6.1.8",
     "feather-icons": "^4.29.0",
     "firebase": "^9.21.0",
+    "flatpickr": "^4.6.13",
     "print-js": "^1.6.0",
     "swiper": "^9.2.4"
   }

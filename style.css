@@ -451,7 +451,7 @@ form{
     display: grid;
     padding: 1rem;
     gap: 2rem;
-    grid-template-columns: 1fr 1.2fr 0.6fr;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .booking-details{
@@ -505,12 +505,18 @@ form{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 0 3vw;
 }
 
 .venue-calendar{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+}
+
+.flatpickr-calendar{
+    position: absolute !important;
 }
 
 .feather-check-circle{
