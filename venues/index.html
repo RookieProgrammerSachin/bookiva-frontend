@@ -12,6 +12,8 @@
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" /> 
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body>
     <nav class="navv-main">
@@ -69,8 +71,8 @@
     
                             <p class="ff-inter fs-2s"><i data-feather="info"></i> Distance from main gate: 300</p>
                         </div>
-                        <div class="venue-calendar">
-                            <div></div>
+                        <div class="venue-calendar ff-inter">
+                            <input id="calendar" type="text" placeholder="Select a date">
                         </div>
                         <div class="venue-card">
                             <div class="venue-card-details">
