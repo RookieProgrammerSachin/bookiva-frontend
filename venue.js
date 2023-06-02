@@ -5,32 +5,46 @@ import { auth } from "./config.js";
 feather.replace();
 
 var venueData;
+var isDateSelected = false;
 
-const renderCalendar = async () => {
+const renderCalendar = async (venue) => {
+    // i think i should pull in data from accepted doc from reservations collection
+    // finish admin page and do that, for now, just carry on with venueData dates
+    // const dataaa = await fetch(that shit)
+
+    // also much later refer https://flatpickr.js.org/events/ for having orange, red/disabled dates for 
+    // partially reserved or fully reserved whatever
+
+    const dummyData = venueData.filter((hall) => hall.hallName === venue);
+    const disabledDates = [];
+    if (dummyData[0].reservations) dummyData[0].reservations.forEach(date => disabledDates.push(date.reservedOn.split("-").reverse().join("-")));
+
+    console.log(disabledDates);
+
     flatpickr("#calendar", {
-        disable: ["2023-06-05", "2023-06-08"],
+        disable: disabledDates,
         altInput: true,
         minDate: "today",
         maxDate: new Date().fp_incr(15),
         inline: true,
-        dateFormat: "d-m-y",
+        dateFormat: "d-m-Y",
+        onChange: (dates, date, instance) => {
+            isDateSelected = true;
+            const loginBtn = document.getElementById("login-btn");
+            loginBtn.setAttribute("href", `${auth.currentUser === null? `/login/?hall=${dummyData[0].hallName}&hallImg=${dummyData[0].imgUrl.split("//")[1]}&date=${date}`:`/book/?hall=${dummyData[0].hallName}&hallImg=${dummyData[0].imgUrl.split("//")[1]}&date=${date}`}`);
+            loginBtn.classList.remove("disabled");
+        }
     });
-
-    const venueReq = await fetch("https://fantastic-bull-life-jacket.cyclic.app/api/halls");
-    venueData = await venueReq.json();
-    console.log(venueData);
 }
-
-renderCalendar();
 
 const getData = async () => {
 
     const venueReq = await fetch("https://fantastic-bull-life-jacket.cyclic.app/api/halls");
     venueData = await venueReq.json();
 
-    console.log(JSON.stringify(venueData[0]));
+    console.log(venueData);
 
-    venueData.forEach((cardData)=> {
+    venueData.forEach((cardData) => {
         renderedCards += 
         `<div class="hall-card">
             <div class="hall-img">
@@ -64,7 +78,7 @@ const getData = async () => {
 const userMenu = document.querySelector(".user-menu");
 const cardsContainer = document.querySelector(".cards-container");
 
-document.querySelector(".user-nav").addEventListener("focus", (e)=>{
+document.querySelector(".user-nav").addEventListener("click", (e)=>{
     e.preventDefault();
     userMenu.classList.toggle("user-menu-hidden");
 });
@@ -95,54 +109,66 @@ function openModal(venue) {
 
     overlay.classList.toggle("overlay-hidden");
     modal.classList.toggle("popup-hidden");
+    modal.innerHTML = '';
     if (!modal.classList.contains("popup-hidden")) {
         renderModal(venue);
     }
 }
 
 function renderModal(venue){
-    const hallMarkup = venueData.filter((hall) => hall.hallName === venue).map((hall) => {
-        return `<div class="close-btn-wrapper"><a href="#" class="close-btn ff-inter fs-2s fw-500"><i data-feather="x"></i>  </a></div>
-            <div class="popup-modal">
-                <div class="swiper">
-                    <div class="swiper-wrapper">
-                    ${hall.carouselPics.map((img) =>  `<div class="swiper-slide"><img src=${img}></div>`).join('\n')}
+    //for login button flatpickr la ndhu dates edhu select panromo adha choose panni, URL param ah anupanum
+    isDateSelected = false;
+
+    const hallData = venueData.filter((hall) => hall.hallName === venue);
+    const hallMarkup = hallData.map((hall) => {
+        return `
+            <div class="close-btn-wrapper">
+                <a href="#" class="close-btn ff-inter fs-2s fw-500"><i data-feather="x"></i></a></div>
+                <div class="popup-modal">
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                        ${hall.carouselPics.map((img) =>  `<div class="swiper-slide"><img src=${img}></div>`).join('\n')}
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination"></div>
                     </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-pagination"></div>
-                </div>
-                
-                <div class="popup-details">
-                    <div class="venue-info">
-                        <h2 class="ff-inter fw-600">${hall.hallName}, ${hall.campus}</h2>
-                        <hr class="hr-venue"/>
-                        <p class="ff-inter fs-2s"><i data-feather="info"></i> Number of seats: ${hall.seatingCapacity}</p>
-                        <p class="ff-inter fs-2s"><i data-feather="info"></i> Has AC? ${hall.hasAC?'Yes':'No'}</p>
-                        <p class="ff-inter fs-2s"><i data-feather="info"></i> Is projector available? ${hall.projectorAvailable?'Yes':'No'}</p>
-                        <p class="ff-inter fs-2s"><i data-feather="info"></i> Is the hall reserved? ${hall.isReserved?'Yes':'No'}</p>
-                        ${hall.isReserved? `<p class="ff-inter fs-2s"><i data-feather="info"></i> Hall reserved by: ${hall.reservedBy}</p>`:''}
-                        <p class="ff-inter fs-2s"><i data-feather="info"></i> Distance from main gate: ${hall.distFromGate}</p>
-                    </div>
-                    <div class="venue-card">
+    
+                    <div class="popup-details">
+                        <div class="venue-info">
+                            <h2 class="ff-inter fw-600">${hall.hallName}, ${hall.campus}</h2>
+                            <hr class="hr-venue"/>
+                            <p class="ff-inter fs-2s"><i data-feather="info"></i> Number of seats: ${hall.seatingCapacity}</p>
+                            <p class="ff-inter fs-2s"><i data-feather="info"></i> Has AC? ${hall.hasAC?'Yes':'No'}</p>
+                            <p class="ff-inter fs-2s"><i data-feather="info"></i> Is projector available? ${hall.projectorAvailable?'Yes':'No'}</p>
+                            <p class="ff-inter fs-2s"><i data-feather="info"></i> Is the hall reserved? ${hall.isReserved?'Yes':'No'}</p>
+                            ${hall.isReserved? `<p class="ff-inter fs-2s"><i data-feather="info"></i> Hall reserved by: ${hall.reservedBy}</p>`:''}
+                            <p class="ff-inter fs-2s"><i data-feather="info"></i> Distance from main gate: ${hall.distFromGate}</p>
+                        </div>
+                        <div class="venue-calendar ff-inter">
+                            <input id="calendar" type="text" placeholder="Select a date">
+                            <p class="ff-inter fs-2s">If dates are not clickable, they are already reserved</p>
+                        </div>
+                        <div class="venue-card">
                         <div class="venue-card-details">
                             <!--hall is commonly available for everyone to book ahillaya nu oru field-->
                             <div>
                                 ${hall.isAvailable?`<i data-feather="check-circle"></i>
                                 <p class="ff-inter fs-2s">This hall is in working condition to reserve.</p>`:`<i data-feather="x-circle"></i>
                                 <p class="ff-inter fs-2s">This hall is not in working condition to reserve.</p>`}
-                                ${hall.isAvailable?`<p class="ff-inter fs-s" style="margin-top:1rem;">Proceed to book ${auth.currentUser === null?`after logging in`: `as <strong>${auth.currentUser.email}</strong> to confirm dates`}, by clicking the button below</p>`:`<p class="ff-inter fs-s" style="margin-top:1rem;">Contact admin for further help</p>`}
+                                ${hall.isAvailable?`<br><p class="ff-inter fs-s">Select a date to enable Book Button</p> <p class="ff-inter fs-s" style="margin-top:1rem;">Proceed to book ${auth.currentUser === null?`after logging in`: `as <strong>${auth.currentUser.email}</strong> to confirm time`}, by clicking the button below</p>`:`<p class="ff-inter fs-s" style="margin-top:1rem;">Contact admin for further help</p>`}
                             </div>
+                            </div>
+                            ${auth.currentUser === null? `<a href="/login/" id="login-btn" class="ff-inter butt-sub sign-in fs-s  ${hall.isAvailable?``:`disabled`}">Login</a>`:`<a id="login-btn" href="/book/?hall=${hall.hallName}&hallImg=${hall.imgUrl.split("//")[1]}" class="ff-inter butt-main sign-in fs-s ${hall.isAvailable && isDateSelected?``:`disabled`}">Book Now</a>`}
                         </div>
-                        ${auth.currentUser === null? `<a href="/login/" class="ff-inter butt-sub sign-in fs-s  ${hall.isAvailable?``:`disabled`}">Login</a>`:`<a href="/book/?hall=${hall.hallName}&hallImg=${hall.imgUrl.split("//")[1]}" class="ff-inter butt-main sign-in fs-s ${hall.isAvailable?``:`disabled`}">Book Now</a>`}
+                        
                     </div>
                 </div>
-            </div>
         `;
     }).join('');
 
     modal.innerHTML = hallMarkup;
-    console.log(hallMarkup);
+    // console.log(hallMarkup);
     feather.replace();
 
     document.querySelector(".close-btn").addEventListener("click", (e) => {
@@ -161,6 +187,8 @@ function renderModal(venue){
             prevEl: ".swiper-button-prev",
         }
     }); 
+
+    renderCalendar(venue);
 }
 
 onAuthStateChanged(auth, (user)=>{
@@ -181,4 +209,4 @@ onAuthStateChanged(auth, (user)=>{
     }
 });
 
-// getData();
+getData();

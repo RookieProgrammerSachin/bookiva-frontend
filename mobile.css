@@ -10,6 +10,11 @@
         width: 100px;
     }
 
+    .user-menu{
+        left: unset;
+        right: 0;
+    }
+
     .home-content{
         padding: 8% 6%;
     }
@@ -61,5 +66,9 @@
 
     .venue-card{
         gap: 2rem
+    }
+
+    .venue-calendar{
+        height: 20rem;
     }
 }

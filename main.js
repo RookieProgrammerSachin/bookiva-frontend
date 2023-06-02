@@ -7,6 +7,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { db, auth } from "./config.js";
 
 feather.replace();
+const URLParams = new URLSearchParams(window.location.search);
 
 const signInBtn = document.querySelector(".sign-in");
 
@@ -30,7 +31,8 @@ signInBtn.onclick = (e) => {
           const userData = await userReq.json();
           console.log(userData);
           if (userData.some((elem) => elem.id === email.value)){
-              location.href = "/venues/";
+            if (URLParams.get("date") === null) location.href = "/venues/";
+            else location.href = "/book/"+window.location.search;
           }else{
               await setDoc(docRef, {
                   hasResetPwd: true,
