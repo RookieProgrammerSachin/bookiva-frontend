@@ -11,15 +11,16 @@ const URLParams = new URLSearchParams(window.location.search);
 const selectedHall = URLParams.get("hall");
 document.querySelector(".hall-name").innerHTML = selectedHall;
 document.querySelector(".hall-image").setAttribute("src","https://" + URLParams.get("hallImg"));
-document.querySelector("#date").value = URLParams.get("date").split("-").reverse().join("-");
+const selectedDate = URLParams.get("date").split("-").reverse().join("-");
+document.querySelector("#date").value = selectedDate;
 
 const userMenu = document.querySelector(".user-menu");
 const startTimeElem = document.querySelector("#from-time");
 const endTimeElem = document.querySelector("#end-time");
 
 document.querySelector(".user-nav").addEventListener("click", (e)=>{
-    e.preventDefault();
     e.stopPropagation(); 
+    e.preventDefault();
     userMenu.classList.toggle("user-menu-hidden");
 });
 
@@ -49,24 +50,24 @@ onAuthStateChanged(auth, (user)=>{
 const msgBox = document.querySelector(".msg-box");
 var msgContent = '';
 
-flatpickr("#start-time", {
-    enableTime: true,
-    noCalendar: true,
-    time_24hr: true,
-    minTime: "09:00",
-    maxTime: "18:00",
-});
+// flatpickr("#start-time", {
+//     enableTime: true,
+//     noCalendar: true,
+//     time_24hr: true,
+//     minTime: "09:00",
+//     maxTime: "18:00",
+// });
 
-flatpickr("#end-time", {
-    enableTime: true,
-    noCalendar: true,
-    time_24hr: true,
-    minTime: "09:00",
-    maxTime: "18:00",
-});
+// flatpickr("#end-time", {
+//     enableTime: true,
+//     noCalendar: true,
+//     time_24hr: true,
+//     minTime: "09:00",
+//     maxTime: "18:00",
+// });
 
 const putMsg = (msg, success) => {
-    msgBox.innerHTML = `<div style="display:flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">${success?'<i data-feather="check-circle"></i><p class="ff-inter fs-s fw-500">Success:</p>':'<i data-feather="x-circle"></i><p class="ff-inter fs-s fw-500">Issues found:</p>'} </div>`;
+    msgBox.innerHTML = `<div style="display:flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">${success?'<i data-feather="check-circle"></i><p class="ff-inter fs-s fw-500">Booking was successful! Check your mail for confirmation:</p>':'<i data-feather="x-circle"></i><p class="ff-inter fs-s fw-500">Something went wrong! Please try after some time or contact admin</p>'} </div>`;
     msgBox.innerHTML += `${msg}`;
     feather.replace();
     msgBox.classList.remove("msg-box-hidden");
@@ -79,6 +80,33 @@ const clearMsg = () => {
     }, 5000);
 }
 
+const form = document.querySelector(".booking-form");
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const submissionData = {
+        hall: slugify(selectedHall),
+        id: document.querySelector("#email").value,
+        start: document.getElementById("start-time").value,
+        end: document.getElementById("end-time").value,
+        date: selectedDate.split("-").reverse().join("-"),
+    }
+    console.log(submissionData);
+
+    try{
+        await fetch("https://frail-puce-wear.cyclic.app/api/book", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(submissionData),
+        });
+        msgContent = `<p class="ff-inter fs-2s">Booking was confirmed! Check your email for details</p>"`
+        putMsg(msgContent, true);
+    } catch(e) {
+
+    }
+});
     // const validateDB = () => {
     //     console.log("varudhu");
     //     msgContent = '';

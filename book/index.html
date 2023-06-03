@@ -61,7 +61,7 @@
                 id="name"
                 placeholder="Enter HOD Name"
                 class="ff-inter fs-s book-input-box"
-              
+                required
               />
               <label for="num" class="fs-2s ff-inter  "> HOD Mobile Number *</label>
               <input
@@ -71,7 +71,7 @@
                 id="num"
                 placeholder="Enter HOD Mobile number"
                 class="ff-inter fs-s book-input-box"
-              
+                required
                 maxlength="10"
                 title = "Invalid phone number"
                 pattern="[6-9]{1}[0-9]{9}"
@@ -83,12 +83,12 @@
             </div><!--remove value attr and add required attr to above inputs-->
             <div class="form-date">
                 <div><label for="start-time" class="fs-2s ff-inter  ">Starting Time:*</label>
-                <input type="time" name="start-time" id="start-time" required class="ff-inter fs-s book-input-box"></div>
+                <input type="time" name="start-time" id="start-time" required class="ff-inter fs-s book-input-box" min="09:00" max="18:00"></div>
                 <div><label for="end-time" class="fs-2s ff-inter  ">Ending Time:*</label>
-                <input type="time" name="end-time" id="end-time" required class="ff-inter fs-s book-input-box"></div>
+                <input type="time" name="end-time" id="end-time" required class="ff-inter fs-s book-input-box" min="09:00" max="18:00"></div>
             </div><!--remove value attr and add required attr to above inputs-->
             <label for="purpose" class="ff-inter fs-2s">Purpose of booking:*</label>
-            <textarea name="purpose" id="purpose" cols="30" rows="10" class="ff-inter" style="padding: 1rem"></textarea>
+            <textarea name="purpose" id="purpose" cols="30" rows="10" required class="ff-inter" style="padding: 1rem"></textarea>
             <button type="submit" class="butt-main sign-in ff-inter fs-2s">Confirm booking</button>
         </form>
     </div>

@@ -32,14 +32,14 @@ const renderCalendar = async (venue) => {
             isDateSelected = true;
             const loginBtn = document.getElementById("login-btn");
             loginBtn.setAttribute("href", `${auth.currentUser === null? `/login/?hall=${dummyData[0].hallName}&hallImg=${dummyData[0].imgUrl.split("//")[1]}&date=${date}`:`/book/?hall=${dummyData[0].hallName}&hallImg=${dummyData[0].imgUrl.split("//")[1]}&date=${date}`}`);
-            loginBtn.classList.remove("disabled");
+            if(dummyData[0].isAvailable) loginBtn.classList.remove("disabled");
         }
     });
 }
 
 const getData = async () => {
 
-    const venueReq = await fetch("https://fantastic-bull-life-jacket.cyclic.app/api/halls");
+    const venueReq = await fetch("https://frail-puce-wear.cyclic.app/api/halls");
     venueData = await venueReq.json();
 
     console.log(venueData);

@@ -27,7 +27,7 @@ signInBtn.onclick = (e) => {
       signInWithEmailAndPassword(auth, email.value || '', pwd.value || '')
         .then(async (result) => {
           const docRef = doc(db, "user-data", email.value);
-          const userReq = await fetch("https://fantastic-bull-life-jacket.cyclic.app/api/users");
+          const userReq = await fetch("https://frail-puce-wear.cyclic.app/api/users");
           const userData = await userReq.json();
           console.log(userData);
           if (userData.some((elem) => elem.id === email.value)){
