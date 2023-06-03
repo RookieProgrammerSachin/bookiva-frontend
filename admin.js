@@ -113,14 +113,17 @@ const createPendingTableRow = (sno, hallName, reservationId, requestedBy, date, 
     row.appendChild(endTimeCell);
 
     let descisionCell = document.createElement('td');
+    descisionCell.classList.add("admin-btn-container")
 
     let acceptBtn = document.createElement("button");
     acceptBtn.classList.add("ff-inter", "fs-2s", "accept-btn");
     acceptBtn.innerHTML = `<i data-feather="check-circle"></i> Accept`;
+    acceptBtn.onclick = (e) => acceptRequest(e.target);
     
     let denyBtn = document.createElement("button");
     denyBtn.classList.add("ff-inter", "fs-2s", "deny-btn");
     denyBtn.innerHTML = `<i data-feather="x-circle"></i> Deny`;
+    denyBtn.onclick = (e) => denyRequest(e.target);
     
     descisionCell.appendChild(acceptBtn);
     descisionCell.appendChild(denyBtn);
@@ -129,5 +132,38 @@ const createPendingTableRow = (sno, hallName, reservationId, requestedBy, date, 
     return row;
 }
 
+const denyRequest = (node) => {
+    console.log(node.parentNode.parentNode.dataset.reservationid);
+    // fetch API call for adding to denied document
+    // and remove that specific reservation from pending doc with arrayRemove()?
+    // create API endpoints
+}
+
+const acceptRequest = (node) => {
+    console.log(node.parentNode.parentNode.dataset.reservationid);
+    // fetch API call for adding to accpeted document
+    // and remove that specific reservation from pending doc with arrayRemove()?
+    // create API endpoints
+}
+
+const menuBtns = document.querySelectorAll(".admin-menu-link");
+const tables = document.querySelectorAll(".admin-data-record");
+
+menuBtns.forEach( menuBtn => {
+    menuBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        for(let tableNode of tables) {
+            tableNode.classList.add("admin-data-hidden");
+            // console.log(tableNode.dataset.state, e.target.dataset.table)
+            if(tableNode.dataset.state === e.target.dataset.table) {
+                tableNode.classList.remove("admin-data-hidden");
+            }
+        }
+        menuBtns.forEach(btn => {
+            btn.classList.remove("admin-menu-link-active");
+            e.target.classList.add("admin-menu-link-active");
+        })
+    })
+});
 
 feather.replace();

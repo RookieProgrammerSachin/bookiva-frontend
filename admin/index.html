@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="/utility.css">
     <link rel="stylesheet" href="/mobile.css">
     <script src="https://unpkg.com/feather-icons"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" /> 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 </head>
 <body>
     <nav class="navv-main">
@@ -36,10 +34,21 @@
 
     <div class="admin-container">
         <div class="admin-menu">
-            <a href="#pending" class="admin-menu-link ff-inter fs-m" data-table="pending">Pending </a><a href="#accepted" class="admin-menu-link ff-inter fs-m" data-table="accepted">Accepted</a><a href="#denied" class="admin-menu-link ff-inter fs-m" data-table="denied">Denied</a>
+            <div>
+                <input type="radio" name="pending" value="pending">
+                <label for="pending" class="admin-menu-link ff-inter fs-2s" data-table="pending">Pending</label>
+            </div>
+            <div>
+                <input type="radio" name="accepted" value="accepted">
+                <label for="accepted" class="admin-menu-link ff-inter fs-2s" data-table="accepted">Accepted</label>
+            </div>
+            <div>
+                <input type="radio" name="denied" value="denied">
+                <label for="denied" class="admin-menu-link ff-inter fs-2s" data-table="denied">Denied</label>
+            </div>
         </div>
         <div class="admin-data">
-            <div class="admin-pending" data-state="pending">
+            <div class="admin-data-record" data-state="pending">
                 <h1 class="ff-inter">Pending booking requests:</h1>
                 <hr>
                 <br>
@@ -60,13 +69,13 @@
                     </tbody>
                 </table>
             </div>
-            <div class="admin-allowed admin-data-hidden" data-state="allowed">
-                <h1 class="ff-inter">Allowed booking requests:</h1>
+            <div class="admin-data-record admin-data-hidden" data-state="accepted">
+                <h1 class="ff-inter">Accepted booking requests:</h1>
                 <hr>
                 <br>
                 <div class="admin-allowed-records"></div>
             </div>
-            <div class="admin-denied admin-data-hidden" data-state="denied">
+            <div class="admin-data-record admin-data-hidden" data-state="denied">
                 <h1 class="ff-inter">Denied booking requests:</h1>
                 <hr>
                 <br>

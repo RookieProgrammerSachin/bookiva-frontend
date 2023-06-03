@@ -71,4 +71,9 @@
     .venue-calendar{
         height: 20rem;
     }
+
+    .admin-container{
+        grid-template-columns: none;
+        grid-template-rows: 1fr
+    }
 }
