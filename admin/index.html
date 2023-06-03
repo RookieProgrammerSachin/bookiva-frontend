@@ -36,10 +36,42 @@
 
     <div class="admin-container">
         <div class="admin-menu">
-            <a href="#pending" class="admin-menu-link ff-inter fs-m">Pending </a><a href="#accepted" class="admin-menu-link ff-inter fs-m">Accepted</a><a href="#denied" class="admin-menu-link ff-inter fs-m">Denied</a>
+            <a href="#pending" class="admin-menu-link ff-inter fs-m" data-table="pending">Pending </a><a href="#accepted" class="admin-menu-link ff-inter fs-m" data-table="accepted">Accepted</a><a href="#denied" class="admin-menu-link ff-inter fs-m" data-table="denied">Denied</a>
         </div>
         <div class="admin-data">
-            
+            <div class="admin-pending" data-state="pending">
+                <h1 class="ff-inter">Pending booking requests:</h1>
+                <hr>
+                <br>
+                <table id="admin-pending-records">
+                    <thead>
+                      <tr>
+                        <th class="ff-inter fs-m">S.No.</th>
+                        <th class="ff-inter fs-m">Hall name</th>
+                        <th class="ff-inter fs-m">Requested by</th>
+                        <th class="ff-inter fs-m">Date</th>
+                        <th class="ff-inter fs-m">Start Time</th>
+                        <th class="ff-inter fs-m">End Time</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Table rows will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="admin-allowed admin-data-hidden" data-state="allowed">
+                <h1 class="ff-inter">Allowed booking requests:</h1>
+                <hr>
+                <br>
+                <div class="admin-allowed-records"></div>
+            </div>
+            <div class="admin-denied admin-data-hidden" data-state="denied">
+                <h1 class="ff-inter">Denied booking requests:</h1>
+                <hr>
+                <br>
+                <div class="admin-denied-records"></div>
+            </div>
         </div>
     </div>
 

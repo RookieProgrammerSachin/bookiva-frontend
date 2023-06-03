@@ -1,5 +1,5 @@
 import { db, auth } from './config.js';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 const userMenu = document.querySelector(".user-menu");
 
@@ -8,7 +8,7 @@ document.querySelector(".user-nav").addEventListener("click", (e)=>{
     userMenu.classList.toggle("user-menu-hidden");
 });
 
-onAuthStateChanged(auth, (user)=>{
+onAuthStateChanged(auth, async (user)=>{
     if (user.uid === "7JiwkV5dfQO602p5RuGLlOu7Av82"){
         userMenu.children[0].innerHTML = `
             <h3 class="ff-inter">Welcome, ${user.displayName || user.email}</h3>
@@ -23,10 +23,26 @@ onAuthStateChanged(auth, (user)=>{
             });
         }
 
-        getData();
+        const reservationsData = await getData(); // getting reservations collection data
+        allowed = reservationsData[0];
+        denied = reservationsData[1];
+        pending = reservationsData[2];
+        console.log(pending.reservation);
 
+        //rendering table for pending
+        pending.reservation.forEach((pendingData, index) => {
+            let row = createPendingTableRow(index + 1, pendingData.reservedHall, pendingData.reserveId, pendingData.reservedBy, pendingData.reservedOn, pendingData.startTime, pendingData.endTime);
+            pendingTable.appendChild(row);
+            feather.replace()
+        });
     }
 });
+
+var pending = [];
+var allowed = [];
+var denied = [];
+
+const pendingTable = document.getElementById("admin-pending-records");
 
 const slugify = str => str.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
 
@@ -49,18 +65,68 @@ const clearMsg = () => {
 const getData = async () => {
 
     try {    
-        const reservationData = await fetch("http://localhost:3000/api/admin-data", {
+        const adminFetchData = await fetch("http://localhost:3000/api/admin-data", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(auth.currentUser.uid),
-        });
-        const { pending, allowed, denied } = await reservationData.json();
-        console.log(pending, allowed, denied);
+            body: JSON.stringify({id: auth.currentUser.uid}),
+        })
+        const reservationData = await adminFetchData.json();
+        // allowed = reservationData[0];
+        // denied = reservationData[1]; // use it elsehwere
+        // pending = reservationData[2];
+        // console.log(allowed, denied, pending);
+        return reservationData;
     } catch(err) {
         console.log(err);
     }
+}
+
+const createPendingTableRow = (sno, hallName, reservationId, requestedBy, date, startTime, endTime) => {
+    let row = document.createElement('tr');
+    row.classList.add("ff-inter", "fs-2s");
+    row.setAttribute("data-reservationid", reservationId);
+
+    let snoCell = document.createElement('td');
+    snoCell.textContent = sno;
+    row.appendChild(snoCell);
+
+    let hallNameCell = document.createElement('td');
+    hallNameCell.textContent = hallName;
+    row.appendChild(hallNameCell);
+
+    let requestedByCell = document.createElement('td');
+    requestedByCell.textContent = requestedBy;
+    row.appendChild(requestedByCell);
+
+    let dateCell = document.createElement('td');
+    dateCell.textContent = date;
+    row.appendChild(dateCell);
+
+    let startTimeCell = document.createElement('td');
+    startTimeCell.textContent = startTime;
+    row.appendChild(startTimeCell);
+
+    let endTimeCell = document.createElement('td');
+    endTimeCell.textContent = endTime;
+    row.appendChild(endTimeCell);
+
+    let descisionCell = document.createElement('td');
+
+    let acceptBtn = document.createElement("button");
+    acceptBtn.classList.add("ff-inter", "fs-2s", "accept-btn");
+    acceptBtn.innerHTML = `<i data-feather="check-circle"></i> Accept`;
+    
+    let denyBtn = document.createElement("button");
+    denyBtn.classList.add("ff-inter", "fs-2s", "deny-btn");
+    denyBtn.innerHTML = `<i data-feather="x-circle"></i> Deny`;
+    
+    descisionCell.appendChild(acceptBtn);
+    descisionCell.appendChild(denyBtn);
+    row.appendChild(descisionCell);
+
+    return row;
 }
 
 
