@@ -15,8 +15,6 @@ const selectedDate = URLParams.get("date").split("-").reverse().join("-");
 document.querySelector("#date").value = selectedDate;
 
 const userMenu = document.querySelector(".user-menu");
-const startTimeElem = document.querySelector("#from-time");
-const endTimeElem = document.querySelector("#end-time");
 
 document.querySelector(".user-nav").addEventListener("click", (e)=>{
     e.stopPropagation(); 

@@ -26,6 +26,7 @@ signInBtn.onclick = (e) => {
   setPersistence(auth, browserSessionPersistence).then(() => {
       signInWithEmailAndPassword(auth, email.value || '', pwd.value || '')
         .then(async (result) => {
+          if (result.user.uid === "7JiwkV5dfQO602p5RuGLlOu7Av82") location.href = '/admin/';
           const docRef = doc(db, "user-data", email.value);
           const userReq = await fetch("https://frail-puce-wear.cyclic.app/api/users");
           const userData = await userReq.json();

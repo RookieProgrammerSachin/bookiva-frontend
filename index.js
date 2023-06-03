@@ -6,7 +6,7 @@ feather.replace();
 const userMenu = document.querySelector(".user-menu");
 
 document.querySelector(".user-nav").addEventListener("click", (e)=>{
-    e.preventDefault();
+    // e.preventDefault();
     userMenu.classList.toggle("user-menu-hidden");
 });
 

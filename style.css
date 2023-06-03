@@ -93,6 +93,7 @@ body{
 }
 
 .user-menu-hidden{
+    display: none;
     z-index: -10;
     opacity: 0;
 }
@@ -293,10 +294,6 @@ form{
     /* outline: 1px solid red;    */
 }
 
-.admin-card{
-    gap: 1.2rem
-}
-
 .hall-info{
     display: flex;
     flex-direction: column;
@@ -462,15 +459,6 @@ form{
     grid-template-columns: 1fr 1fr;
 }
 
-.admin-popup-img{
-    height: 1vh;
-}
-
-.admin-popup-img img{
-    object-fit: contain;
-    display: none;
-}
-
 .butt-accept{
     text-decoration: none;
 }
@@ -564,4 +552,42 @@ form{
     top: unset !important;
     bottom: 0 !important;
     height: 3px;
+}
+
+.admin-container{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    width: 100%;
+    padding: 4rem;
+    grid-gap: 1rem;
+}
+
+.admin-menu{
+    height: 300px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem
+}
+
+.admin-data{
+    height: 700px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+}
+
+.admin-menu-link{
+    text-decoration: none;
+    color: #454545;
+    padding: 1rem;
+    border-bottom: 1px solid #414141;
+    width: 80%;
+    text-align: center;
+}
+
+.admin-menu-link:hover{
+    color: #7c7c7c;
 }

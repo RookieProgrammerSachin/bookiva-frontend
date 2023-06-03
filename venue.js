@@ -79,7 +79,7 @@ const userMenu = document.querySelector(".user-menu");
 const cardsContainer = document.querySelector(".cards-container");
 
 document.querySelector(".user-nav").addEventListener("click", (e)=>{
-    e.preventDefault();
+    // e.preventDefault();
     userMenu.classList.toggle("user-menu-hidden");
 });
 

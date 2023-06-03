@@ -1,40 +1,34 @@
+import { db, auth } from './config.js';
+import { onAuthStateChanged } from 'firebase/auth';
 
-const bookingData = [
-    [
-        "Alpha Hall",
-        "muthuvel.rd@sairam.edu.in",
-        {
-            "endDate": "2023-05-10",
-            "startDate": "2023-05-18",
-            "startTime": "09:00:00",
-            "endTime": "04:00:00",
-            purpose: "Googe seminar"
-        }
-    ],
-    [
-        "Beta Hall",
-        "hod.it@sairamit.edu.in",
-        {
-            "endTime": "12:00:00",
-            "startTime": "09:40:00",
-            "startDate": "2023-05-23",
-            "endDate": "2023-05-27",
-            purpose: "Hack-Riot 24-hour hackathon"
-        }
-    ]
-];
+const userMenu = document.querySelector(".user-menu");
 
-var modal;
-var overlay;
+document.querySelector(".user-nav").addEventListener("click", (e)=>{
+    // e.preventDefault();
+    userMenu.classList.toggle("user-menu-hidden");
+});
+
+onAuthStateChanged(auth, (user)=>{
+    if (user.uid === "7JiwkV5dfQO602p5RuGLlOu7Av82"){
+        userMenu.children[0].innerHTML = `
+            <h3 class="ff-inter">Welcome, ${user.displayName || user.email}</h3>
+            <a class="ff-inter fs-2s user-menu-link log-out" href="#">Log out</a>
+        `;
+        document.querySelector(".log-out").onclick = (e) => {
+            e.preventDefault();
+            signOut(auth).then(()=>{
+                location.href = "/";
+            }).catch((err)=>{
+                console.log("Error occured during Sign out" + err);
+            });
+        }
+
+        getData();
+
+    }
+});
 
 const slugify = str => str.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
-
-document.querySelectorAll(".details-btn").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        openModal(e.target.dataset.venue);
-    })
-});
 
 const msgBox = document.querySelector(".msg-box");
 
@@ -52,65 +46,22 @@ const clearMsg = () => {
     }, 5000);
 }
 
-function openModal(venue) {
-    modal = document.querySelector(".popup-modal-wrapper");
-    overlay = document.querySelector(".overlay");
-    if (screen.width <= 500) document.body.classList.toggle("body-noscroll");
-    overlay.classList.toggle("overlay-hidden");
-    modal.classList.toggle("popup-hidden");
-    if (!modal.classList.contains("popup-hidden")) {
-        renderModal(venue);
+const getData = async () => {
+
+    try {    
+        const reservationData = await fetch("http://localhost:3000/api/admin-data", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(auth.currentUser.uid),
+        });
+        const { pending, allowed, denied } = await reservationData.json();
+        console.log(pending, allowed, denied);
+    } catch(err) {
+        console.log(err);
     }
 }
 
-function renderModal(venue){
-    const hallMarkup = bookingData.filter((hall) => slugify(hall[0]) === venue).map((hall) => {
-        return `<div class="close-btn-wrapper"><a href="#" class="close-btn ff-inter fs-2s fw-500""><i data-feather="x"></i>  </a></div>
-            <div class="popup-modal">
-              
-                <div class="popup-details booking-details">
-                    <div class="venue-info">
-                        <h2 class="ff-inter fw-600">${hall[0]}</h2>
-                        <hr class="hr-venue"/>
-                        <p class="ff-inter fs-2s"><i data-feather="info"></i> Reserved by: ${hall[1]}</p>
-                        <p class="ff-inter fs-2s"><i data-feather="info"></i> Start Date: ${hall[2].startDate}</p>
-                        <p class="ff-inter fs-2s"><i data-feather="info"></i> End Date ${hall[2].endDate}</p>
-                        <p class="ff-inter fs-2s"><i data-feather="info"></i> Start Time: ${hall[2].startTime}</p>
-                        <p class="ff-inter fs-2s"><i data-feather="info"></i> End Time: ${hall[2].endTime}</p>
-                        <p class="ff-inter fs-2s"><i data-feather="info"></i> Purpose: ${hall[2].purpose}</p>
-                    </div>
-                    <div class="venue-card">
-                        <div class="venue-card-details">
-                            <!--hall is commonly available for everyone to book ahillaya nu oru field-->
-                            <div>
-                                <i data-feather="check-circle"></i>
-                                <p class="ff-inter fs-2s">This hall is in working condition and is ready to reserve.</p>
-                                <input type="checkbox"><span class="ff-inter fs-s fw-500"> Check here is this hall is not in working condition</span></input>
-                            </div>
-                        </div>
-                        <div style="display:grid; grid-template-columns: 1fr 1fr; width: 100%">
-                            <a href="#" class="ff-inter fs-s fw-500 butt-sub butt-accept">Accept</a>
-                            <a href="#" class="ff-inter fs-s fw-500 butt-sub butt-deny">Deny</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }).join('');
-    modal.innerHTML = hallMarkup;
-    feather.replace();
-    document.querySelector(".close-btn").addEventListener("click", (e) => {
-        e.preventDefault();
-        openModal(" ");
-    });
-    document.querySelector(".butt-accept").addEventListener("click", (e) => {
-        e.preventDefault();
-        putMsg("Accepted successfully", true);
-    });
-    document.querySelector(".butt-deny").addEventListener("click", (e) => {
-        e.preventDefault();
-        putMsg("Request denied", false);
-    });
-}
 
 feather.replace();
