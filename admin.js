@@ -31,7 +31,7 @@ onAuthStateChanged(auth, async (user)=>{
 
         //rendering table for pending
         pending.reservation.forEach((pendingData, index) => {
-            let row = createPendingTableRow(index + 1, pendingData.reservedHall, pendingData.reserveId, pendingData.reservedBy, pendingData.reservedOn, pendingData.startTime, pendingData.endTime);
+            let row = createPendingTableRow(index + 1, pendingData.reservedHall, pendingData.reserveId, pendingData.reserverName || pendingData.reservedBy, pendingData.reservedOn, pendingData.startTime, pendingData.endTime, pendingData.guest, pendingData.seats, pendingData.purpose);
             pendingTable.appendChild(row);
             feather.replace()
         });
@@ -83,9 +83,9 @@ const getData = async () => {
     }
 }
 
-const createPendingTableRow = (sno, hallName, reservationId, requestedBy, date, startTime, endTime) => {
+const createPendingTableRow = (sno, hallName, reservationId, requestedBy, date, startTime, endTime, guest, seats, purpose) => {
     let row = document.createElement('tr');
-    row.classList.add("ff-inter", "fs-2s");
+    row.classList.add("ff-inter", "fs-s");
     row.setAttribute("data-reservationid", reservationId);
 
     let snoCell = document.createElement('td');
@@ -111,6 +111,20 @@ const createPendingTableRow = (sno, hallName, reservationId, requestedBy, date, 
     let endTimeCell = document.createElement('td');
     endTimeCell.textContent = endTime;
     row.appendChild(endTimeCell);
+    
+    let guestCell = document.createElement('td');
+    guestCell.textContent = guest;
+    guestCell.style.maxWidth = "8rem";
+    row.appendChild(guestCell);
+    
+    let seatsCell = document.createElement('td');
+    seatsCell.textContent = seats;
+    row.appendChild(seatsCell);
+    
+    let purposeCell = document.createElement('td');
+    purposeCell.textContent = purpose;
+    purposeCell.style.maxWidth = "8rem";
+    row.appendChild(purposeCell);
 
     let descisionCell = document.createElement('td');
     descisionCell.classList.add("admin-btn-container")

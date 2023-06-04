@@ -83,16 +83,20 @@ const form = document.querySelector(".booking-form");
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const submissionData = {
-        hall: slugify(selectedHall),
+        hall: selectedHall,
         id: document.querySelector("#email").value,
         start: document.getElementById("start-time").value,
         end: document.getElementById("end-time").value,
         date: selectedDate.split("-").reverse().join("-"),
+        name: document.querySelector("#name").value,
+        purpose: document.querySelector("#purpose").value,
+        seats: document.querySelector("#seats").value,
+        guest: document.querySelector("#guest").value
     }
     console.log(submissionData);
 
     try{
-        await fetch("https://frail-puce-wear.cyclic.app/api/book", {
+        await fetch("http://localhost:3000/api/book", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
