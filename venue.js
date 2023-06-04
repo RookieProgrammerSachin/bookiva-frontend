@@ -147,7 +147,7 @@ function renderModal(venue){
                         </div>
                         <div class="venue-calendar ff-inter">
                             <input id="calendar" type="text" placeholder="Select a date">
-                            <p class="ff-inter fs-2s">If dates are not clickable, they are already reserved</p>
+                            <p class="ff-inter fs-2s"><strong>NOTE</strong>: If dates cannot be selected then they are already reserved</p>
                         </div>
                         <div class="venue-card">
                         <div class="venue-card-details">
@@ -156,7 +156,7 @@ function renderModal(venue){
                                 ${hall.isAvailable?`<i data-feather="check-circle"></i>
                                 <p class="ff-inter fs-2s">This hall is in working condition to reserve.</p>`:`<i data-feather="x-circle"></i>
                                 <p class="ff-inter fs-2s">This hall is not in working condition to reserve.</p>`}
-                                ${hall.isAvailable?`<br><p class="ff-inter fs-s">Select a date to enable Book Button</p> <p class="ff-inter fs-s" style="margin-top:1rem;">Proceed to book ${auth.currentUser === null?`after logging in`: `as <strong>${auth.currentUser.email}</strong> to confirm time`}, by clicking the button below</p>`:`<p class="ff-inter fs-s" style="margin-top:1rem;">Contact admin for further help</p>`}
+                                ${hall.isAvailable?`<br><p class="ff-inter fs-s fw-600">Select a date to enable Book Button</p> <p class="ff-inter fs-s" style="margin-top:1rem;">Proceed to book ${auth.currentUser === null?`after logging in`: `as <strong>${auth.currentUser.email}</strong> to confirm time`}, by clicking the button below</p>`:`<p class="ff-inter fs-s" style="margin-top:1rem;">Contact admin for further help</p>`}
                             </div>
                             </div>
                             ${auth.currentUser === null? `<a href="/login/" id="login-btn" class="ff-inter butt-sub sign-in fs-s  ${hall.isAvailable?``:`disabled`}">Login</a>`:`<a id="login-btn" href="/book/?hall=${hall.hallName}&hallImg=${hall.imgUrl.split("//")[1]}" class="ff-inter butt-main sign-in fs-s ${hall.isAvailable && isDateSelected?``:`disabled`}">Book Now</a>`}

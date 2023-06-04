@@ -9,6 +9,7 @@ const slugify = str => str.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace
 
 const URLParams = new URLSearchParams(window.location.search);
 const selectedHall = URLParams.get("hall");
+if (!selectedHall) location.href='/';
 document.querySelector(".hall-name").innerHTML = selectedHall;
 document.querySelector(".hall-image").setAttribute("src","https://" + URLParams.get("hallImg"));
 const selectedDate = URLParams.get("date").split("-").reverse().join("-");
@@ -48,6 +49,8 @@ onAuthStateChanged(auth, (user)=>{
 const msgBox = document.querySelector(".msg-box");
 var msgContent = '';
 
+const submitBtn = document.querySelector(".submit");
+
 // flatpickr("#start-time", {
 //     enableTime: true,
 //     noCalendar: true,
@@ -82,6 +85,9 @@ const form = document.querySelector(".booking-form");
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    submitBtn.innerHTML = `<span class="loader" style="border-top: 3px solid #fff;height: 24px; width: 24px;"></span>`;
+
     const submissionData = {
         hall: selectedHall,
         id: document.querySelector("#email").value,
@@ -103,68 +109,16 @@ form.addEventListener("submit", async (e) => {
             },
             body: JSON.stringify(submissionData),
         });
-        msgContent = `<p class="ff-inter fs-2s">Booking was confirmed! Check your email for details</p>"`
+        msgContent = `<p class="ff-inter fs-2s">Booking was confirmed! Check your email for details</p>`
         putMsg(msgContent, true);
+        setTimeout(() => {
+            location.href = '/';
+        }, 3000);
     } catch(e) {
-
+        msgContent = `<p class="ff-inter fs-2s">Error in booking. Try again later!</p>`;
+        putMsg(msgContent, false);
+        setTimeout(() => {
+            location.href = '/';
+        }, 3000);
     }
 });
-    // const validateDB = () => {
-    //     console.log("varudhu");
-    //     msgContent = '';
-    //     let startDate = new Date(startDateElem.value).toJSON().slice(0, 10); 
-    //     let endDate = new Date(endDateElem.value).toJSON().slice(0, 10);
-    //     let startTime = new Date(startDateElem.value + " " + startTimeElem.value);
-    //     let endTime = new Date(endDateElem.value + " " + endTimeElem.value);
-    
-    //     if (reservedDB.filter((r) => slugify(selectedHall) === r[0]).length === 0){
-    //         printJS({printable: document.getElementById("bruh"), type: 'html', css: "/style.css"});
-    //         putMsg(msgContent, true);
-    //         return;
-    //     }
-    
-    //     reservedDB.forEach((reservation) => {
-    //         let reserveStartDate = new Date(reservation[2].startDate).toJSON().slice(0,10);
-    //         let reserveEndDate = new Date(reservation[2].endDate).toJSON().slice(0,10);
-    //         let reserveStartTime = new Date(reservation[2].startDate + " " + reservation[2].startTime);
-    //         let reserveEndTime = new Date(reservation[2].endDate + " " + reservation[2].endTime);
-    
-    //         let noError = false;
-    
-    //         console.log(slugify(selectedHall), reservation[0]);
-    
-    //         if (slugify(selectedHall) === reservation[0]){
-    //             console.log("no desnsion");
-    //             console.log(reserveStartDate, reserveEndDate);
-    //             if (reserveStartDate >= startDate && reserveStartDate <= endDate){
-    //                 msgContent += `<br><div style="display:flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;"><i data-feather="info"></i><p class="ff-inter fs-2s">This hall has already been reserved by <strong>${reservation[1]}</strong> from ${reserveStartDate} to ${reserveEndDate}</p></div>`
-    //                 msgContent += `<br><div style="display:flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;"><i data-feather="info"></i><p class="ff-inter fs-2s">Their start date (${reserveStartDate}) falls between your reserved dates (${startDate} to ${endDate})</p></div>`;
-    //             }else if (reserveEndDate >= startDate && reserveEndDate <= endDate){
-    //                 msgContent += `<br><div style="display:flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;"><i data-feather="info"></i><p class="ff-inter fs-2s">This hall has already been reserved by <strong>${reservation[1]}</strong> from ${reserveStartDate} to ${reserveEndDate}</p></div>`
-    //                 msgContent += `<br><div style="display:flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;"><i data-feather="info"></i><p class="ff-inter fs-2s">Their end date (${reserveEndDate}) falls between your reserved dates (${startDate} to ${endDate})</p></div>`;
-    //             }else if (startDate >= reserveStartDate && startDate <= reserveEndDate){
-    //                 msgContent += `<br><div style="display:flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;"><i data-feather="info"></i><p class="ff-inter fs-2s">This hall has already been reserved by <strong>${reservation[1]}</strong> from ${reserveStartDate} to ${reserveEndDate}</p></div>`
-    //                 msgContent += `<br><div style="display:flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;"><i data-feather="info"></i><p class="ff-inter fs-2s">Your start date (${startDate}) falls between their reserved dates (${reserveStartDate} to ${reserveEndDate})</p></div>`;
-    //             }else if (endDate >= reserveStartDate && endDate <= reserveEndDate){
-    //                 msgContent += `<br><div style="display:flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;"><i data-feather="info"></i><p class="ff-inter fs-2s">This hall has already been reserved by <strong>${reservation[1]}</strong> from ${reserveStartDate} to ${reserveEndDate}</p></div>`
-    //                 msgContent += `<br><div style="display:flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;"><i data-feather="info"></i><p class="ff-inter fs-2s">Your end date (${endDate}) falls between their reserved dates (${reserveStartDate} to ${reserveEndDate})</p></div>`;
-    //             }else if (startDate <= reserveStartDate && endDate >= reserveEndDate){
-    //                 msgContent += `<br><div style="display:flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;"><i data-feather="info"></i><p class="ff-inter fs-2s">This hall has already been reserved by <strong>${reservation[1]}</strong> from ${reserveStartDate} to ${reserveEndDate}</p></div>`
-    //                 msgContent += `<br><div style="display:flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;"><i data-feather="info"></i><p class="ff-inter fs-2s">Your chosen dates (${startDate} to ${endDate}) covers their reserved dates (${reserveStartDate} to ${reserveEndDate})</p></div>`;
-    //             }else if (reserveStartDate <= startDate && reserveEndDate >= endDate){
-    //                 msgContent += `<br><div style="display:flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;"><i data-feather="info"></i><p class="ff-inter fs-2s">This hall has already been reserved by <strong>${reservation[1]}</strong> from ${reserveStartDate} to ${reserveEndDate}</p></div>`
-    //                 msgContent += `<br><div style="display:flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;"><i data-feather="info"></i><p class="ff-inter fs-2s">Your chosen dates (${startDate} to ${endDate}) falls between their reserved dates (${reserveStartDate} to ${reserveEndDate})</p></div>`;
-    //             }else{
-    //                 console.log("state 1 suckses");
-    //                 noError = true;
-    //                 printJS({printable: document.getElementById("bruh"), type: 'html', css: "/style.css"});
-    //                 putMsg(msgContent, true);
-    //                 return;
-    //             }
-    //         }
-        
-    //         putMsg(msgContent, noError);
-    //         return;
-            
-    //     });
-    // }

@@ -76,15 +76,54 @@
                 <h1 class="ff-inter">Accepted booking requests:</h1>
                 <hr>
                 <br>
-                <div class="admin-allowed-records"></div>
+                <table id="admin-allowed-records">
+                    <thead>
+                      <tr>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">S.No.</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Hall name</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Requested by</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Date</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Start Time</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">End Time</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Guest</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Seats</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Purpose</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Table rows will be dynamically added here -->
+                    </tbody>
+                </table>
             </div>
             <div class="admin-data-record admin-data-hidden" data-state="denied">
                 <h1 class="ff-inter">Denied booking requests:</h1>
                 <hr>
                 <br>
-                <div class="admin-denied-records"></div>
+                <table id="admin-denied-records">
+                    <thead>
+                      <tr>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">S.No.</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Hall name</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Requested by</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Date</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Start Time</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">End Time</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Guest</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Seats</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Purpose</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Table rows will be dynamically added here -->
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
+
+    <div class="msg-box msg-box-hidden">
     </div>
 
     <script type="module" src="/admin.js"></script>
