@@ -58,7 +58,7 @@ const clearMsg = () => {
 const getData = async () => {
 
     try {    
-        const adminFetchData = await fetch("https://frail-puce-wear.cyclic.app/api/admin-data", {
+        const adminFetchData = await fetch("http://localhost:3000/api/admin-data", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -115,9 +115,14 @@ const createPendingTableRow = (sno, hallName, reservationId, requestedBy, date, 
     row.appendChild(seatsCell);
     
     let purposeCell = document.createElement('td');
-    purposeCell.textContent = purpose;
+    purposeCell.textContent = purpose.split("\n")[0];
     purposeCell.style.maxWidth = "8rem";
     row.appendChild(purposeCell);
+    
+    let refreshmentCell = document.createElement('td');
+    refreshmentCell.textContent = purpose.split("\n")[1];
+    refreshmentCell.style.maxWidth = "8rem";
+    row.appendChild(refreshmentCell);
 
     let descisionCell = document.createElement('td');
     descisionCell.classList.add("admin-btn-container")
@@ -126,14 +131,14 @@ const createPendingTableRow = (sno, hallName, reservationId, requestedBy, date, 
     acceptBtn.classList.add("ff-inter", "fs-2s", "accept-btn");
     acceptBtn.innerHTML = `Accept`;
     acceptBtn.onclick = (e) => {
-        acceptRequest(e.target);
+        acceptRequest(e.target, 0);
     }
     
     let denyBtn = document.createElement("button");
     denyBtn.classList.add("ff-inter", "fs-2s", "deny-btn");
     denyBtn.innerHTML = `Deny`;
     denyBtn.onclick = (e) => {
-        denyRequest(e.target);
+        denyRequest(e.target, 0);
     }
     
     descisionCell.appendChild(acceptBtn);
@@ -182,9 +187,27 @@ const createAllowedTableRow = (sno, hallName, reservationId, requestedBy, date, 
     row.appendChild(seatsCell);
     
     let purposeCell = document.createElement('td');
-    purposeCell.textContent = purpose;
+    purposeCell.textContent = purpose.split("\n")[0];
     purposeCell.style.maxWidth = "8rem";
     row.appendChild(purposeCell);
+    
+    let refreshmentCell = document.createElement('td');
+    refreshmentCell.textContent = purpose.split("\n")[1];
+    refreshmentCell.style.maxWidth = "8rem";
+    row.appendChild(refreshmentCell);
+
+    let descisionCell = document.createElement('td');
+    descisionCell.classList.add("admin-btn-container")
+
+    let denyBtn = document.createElement("button");
+    denyBtn.classList.add("ff-inter", "fs-2s", "deny-btn");
+    denyBtn.innerHTML = `Deny`;
+    denyBtn.onclick = (e) => {
+        denyRequest(e.target, 1);
+    }
+
+    descisionCell.appendChild(denyBtn);
+    row.appendChild(descisionCell);
 
     return row;
 }
@@ -228,28 +251,47 @@ const createDeniedTableRow = (sno, hallName, reservationId, requestedBy, date, s
     row.appendChild(seatsCell);
     
     let purposeCell = document.createElement('td');
-    purposeCell.textContent = purpose;
+    purposeCell.textContent = purpose.split("\n")[0];
     purposeCell.style.maxWidth = "8rem";
     row.appendChild(purposeCell);
+    
+    let refreshmentCell = document.createElement('td');
+    refreshmentCell.textContent = purpose.split("\n")[1];
+    refreshmentCell.style.maxWidth = "8rem";
+    row.appendChild(refreshmentCell);
+
+    let descisionCell = document.createElement('td');
+    descisionCell.classList.add("admin-btn-container")
+
+    let acceptBtn = document.createElement("button");
+    acceptBtn.classList.add("ff-inter", "fs-2s", "accept-btn");
+    acceptBtn.innerHTML = `Accept`;
+    acceptBtn.onclick = (e) => {
+        acceptRequest(e.target, 1);
+    }
+
+    descisionCell.appendChild(acceptBtn);
+    row.appendChild(descisionCell);
 
     return row;
 }
 
-const denyRequest = async (node) => {
+const denyRequest = async (node, from) => {
     const rId = node.parentNode.parentNode.dataset.reservationid;
     console.log(rId);
     // fetch API call for adding to denied document
     // and remove that specific reservation from pending doc with arrayRemove()?
     // create API endpoints
     try {
-        await fetch("https://frail-puce-wear.cyclic.app/api/admin-deny",{
+        await fetch("http://localhost:3000/api/admin-deny",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 reserveId: rId,
-                id: auth.currentUser.uid
+                id: auth.currentUser.uid,
+                mode: from
             })
         });
         putMsg(`<p class="ff-inter fs-2s">Succesfully denied booking</p>`, true);
@@ -260,21 +302,22 @@ const denyRequest = async (node) => {
     }
 }
 
-const acceptRequest = async (node) => {
+const acceptRequest = async (node, from) => {
     const rId = node.parentNode.parentNode.dataset.reservationid;
     console.log(rId);
     // fetch API call for adding to accpeted document
     // and remove that specific reservation from pending doc with arrayRemove()?
     // create API endpoints
     try {
-        await fetch("https://frail-puce-wear.cyclic.app/api/admin-accept",{
+        await fetch("http://localhost:3000/api/admin-accept",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 reserveId: rId,
-                id: auth.currentUser.uid
+                id: auth.currentUser.uid,
+                mode: from
             })
         });
         putMsg(`<p class="ff-inter fs-2s">Succesfully accepted booking</p>`, true);
@@ -296,6 +339,45 @@ const renderTables = async () => {
     denied = reservationsData[1];
     pending = reservationsData[2];
     console.log(pending.reservation);
+
+    allowed.reservation.sort((a, b) => {
+        const hallNameA = a.reservedHall.toLowerCase();
+        const hallNameB = b.reservedHall.toLowerCase();
+      
+        if (hallNameA < hallNameB) {
+          return -1;
+        }
+        if (hallNameA > hallNameB) {
+          return 1;
+        }
+        return 0;
+    });
+
+    pending.reservation.sort((a, b) => {
+        const hallNameA = a.reservedHall.toLowerCase();
+        const hallNameB = b.reservedHall.toLowerCase();
+      
+        if (hallNameA < hallNameB) {
+          return -1;
+        }
+        if (hallNameA > hallNameB) {
+          return 1;
+        }
+        return 0;
+    });
+
+    denied.reservation.sort((a, b) => {
+        const hallNameA = a.reservedHall.toLowerCase();
+        const hallNameB = b.reservedHall.toLowerCase();
+      
+        if (hallNameA < hallNameB) {
+          return -1;
+        }
+        if (hallNameA > hallNameB) {
+          return 1;
+        }
+        return 0;
+    });
 
     //rendering table for pending
     pending.reservation.forEach((pendingData, index) => {

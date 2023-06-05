@@ -31,7 +31,7 @@ const renderCalendar = async (venue) => {
         onChange: (dates, date, instance) => {
             isDateSelected = true;
             const loginBtn = document.getElementById("login-btn");
-            loginBtn.setAttribute("href", `${auth.currentUser === null? `/login/?hall=${dummyData[0].hallName}&hallImg=${dummyData[0].imgUrl.split("//")[1]}&date=${date}`:`/book/?hall=${dummyData[0].hallName}&hallImg=${dummyData[0].imgUrl.split("//")[1]}&date=${date}`}`);
+            loginBtn.setAttribute("href", `${auth.currentUser === null? `/login/?hall=${dummyData[0].hallName}&seats=${dummyData[0].seatingCapacity}&hallImg=${dummyData[0].imgUrl.split("//")[1]}&date=${date}`:`/book/?hall=${dummyData[0].hallName}&seats=${dummyData[0].seatingCapacity}&hallImg=${dummyData[0].imgUrl.split("//")[1]}&date=${date}`}`);
             if(dummyData[0].isAvailable) loginBtn.classList.remove("disabled");
         }
     });

@@ -14,6 +14,8 @@ document.querySelector(".hall-name").innerHTML = selectedHall;
 document.querySelector(".hall-image").setAttribute("src","https://" + URLParams.get("hallImg"));
 const selectedDate = URLParams.get("date").split("-").reverse().join("-");
 document.querySelector("#date").value = selectedDate;
+document.querySelector(".seats-needed").innerText = `Seats required (Max: ${URLParams.get("seats")}):*`;
+document.querySelector("#seats").setAttribute("max", URLParams.get("seats"));
 
 const userMenu = document.querySelector(".user-menu");
 
@@ -87,6 +89,7 @@ form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     submitBtn.innerHTML = `<span class="loader" style="border-top: 3px solid #fff;height: 24px; width: 24px;"></span>`;
+    submitBtn.classList.add("disabled");
 
     const submissionData = {
         hall: selectedHall,
@@ -95,7 +98,7 @@ form.addEventListener("submit", async (e) => {
         end: document.getElementById("end-time").value,
         date: selectedDate.split("-").reverse().join("-"),
         name: document.querySelector("#name").value,
-        purpose: document.querySelector("#purpose").value,
+        purpose: document.querySelector("#purpose").value + "\n" + document.querySelector("#refreshments").value, // + get the value from refreshments input and send POST request
         seats: document.querySelector("#seats").value,
         guest: document.querySelector("#guest").value
     }
@@ -110,6 +113,7 @@ form.addEventListener("submit", async (e) => {
             body: JSON.stringify(submissionData),
         });
         msgContent = `<p class="ff-inter fs-2s">Booking was confirmed! Check your email for details</p>`
+        //send mail with smtpJS after confirmation
         putMsg(msgContent, true);
         setTimeout(() => {
             location.href = '/';
