@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookiva - Admin</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    
+    
+    
+    <script src="https://unpkg.com/feather-icons"></script>
+  <script type="module" crossorigin src="/assets/admin-142f1538.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/config-58d19dce.js">
+  <link rel="stylesheet" href="/assets/config-80d9e860.css">
+</head>
+<body>
+    <nav class="navv-main">
+        <div class="nav-main">
+            <div class="nav-img">
+                <img src="/logo.png" alt="">
+            </div>
+            <div class="nav-links">
+                <button class="user-nav br-m">
+                    <i data-feather="user"></i> 
+                    <i data-feather="chevron-down"></i>
+                    <div class="user-menu user-menu-hidden">
+                        <div class="user-menu-category">
+                            <a class="ff-inter fs-2s user-menu-link" href="/login/">Log in</a>
+                        </div>
+                        <hr class="user-menu-hr">
+                    </div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <div class="admin-menu">
+            <div>
+                <input type="radio" name="pending" value="pending">
+                <label for="pending" class="admin-menu-link ff-inter fs-2s" data-table="pending">Pending</label>
+            </div>
+            <div>
+                <input type="radio" name="accepted" value="accepted">
+                <label for="accepted" class="admin-menu-link ff-inter fs-2s" data-table="accepted">Accepted</label>
+            </div>
+            <div>
+                <input type="radio" name="denied" value="denied">
+                <label for="denied" class="admin-menu-link ff-inter fs-2s" data-table="denied">Denied</label>
+            </div>
+        </div>
+        <div class="admin-data">
+            <div class="admin-data-record" data-state="pending">
+                <h1 class="ff-inter">Pending booking requests:</h1>
+                <hr>
+                <br>
+                <table id="admin-pending-records">
+                    <thead>
+                      <tr>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">S.No.</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Hall name</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Requested by</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Date</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Start Time</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">End Time</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Guest</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Seats</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Purpose</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Table rows will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="admin-data-record admin-data-hidden" data-state="accepted">
+                <h1 class="ff-inter">Accepted booking requests:</h1>
+                <hr>
+                <br>
+                <table id="admin-allowed-records">
+                    <thead>
+                      <tr>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">S.No.</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Hall name</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Requested by</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Date</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Start Time</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">End Time</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Guest</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Seats</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Purpose</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Table rows will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="admin-data-record admin-data-hidden" data-state="denied">
+                <h1 class="ff-inter">Denied booking requests:</h1>
+                <hr>
+                <br>
+                <table id="admin-denied-records">
+                    <thead>
+                      <tr>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">S.No.</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Hall name</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Requested by</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Date</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Start Time</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">End Time</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Guest</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Seats</th>
+                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Purpose</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Table rows will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="msg-box msg-box-hidden">
+    </div>
+
+    
+</body>
+</html>

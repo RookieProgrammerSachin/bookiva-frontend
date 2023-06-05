@@ -102,7 +102,7 @@ form.addEventListener("submit", async (e) => {
     console.log(submissionData);
 
     try{
-        await fetch("http://localhost:3000/api/book", {
+        await fetch("https://frail-puce-wear.cyclic.app/api/book", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

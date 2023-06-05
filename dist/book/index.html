@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookiva - Halls</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    
+    
+    
+    <script src="https://unpkg.com/feather-icons"></script>
+  <script type="module" crossorigin src="/assets/book-1764ba6d.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/config-58d19dce.js">
+  <link rel="stylesheet" href="/assets/config-80d9e860.css">
+</head>
+<body>
+  <nav class="navv-main">
+    <div class="nav-main">
+        <div class="nav-img">
+            <img src="/logo.png" alt="">
+        </div>
+        <div class="nav-links">
+            <a href="/" class="nav-link ff-inter fs-2s">Home</a>
+            <a href="/venues/" class="nav-link nav-link-login ff-inter fs-2s">Browse</a>
+            <button class="user-nav br-m">
+                <i data-feather="user"></i> 
+                <i data-feather="chevron-down"></i>
+                <div class="user-menu user-menu-hidden">
+                    <div class="user-menu-category">
+                        <a class="ff-inter fs-2s user-menu-link" href="/login/">Log in</a>
+                    </div>
+                    <hr class="user-menu-hr">
+                    <a class="ff-inter fs-2s user-menu-link" href="#">Help</a>
+                    <a class="ff-inter fs-2s user-menu-link" href="#">Contact</a>
+                </div>
+            </button>
+        </div>
+    </div>
+  </nav>
+
+    <div class="home-content form-content">
+        
+        <h1 class="ff-inter hall-name"></h1>
+        <div style="display: flex;justify-content: center;align-items: center; width: 90%;"><img alt="" class="hall-image"></div>
+        <form class="booking-form" id="bruh" autocomplete="on">
+            <label for="email" class="fs-2s ff-inter  ">HOD Email Address *</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Enter HOD Email"
+                class="ff-inter fs-s book-input-box"
+                disabled
+                pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+                title="Invalid email address"
+              />
+              <label for="name" class="fs-2s ff-inter  "> HOD Name *</label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Enter HOD Name"
+                class="ff-inter fs-s book-input-box"
+                required
+              />
+              <label for="num" class="fs-2s ff-inter  "> HOD Mobile Number *</label>
+              <input
+                inputmode="numeric"
+                type="tel"
+                name="num"
+                id="num"
+                placeholder="Enter HOD Mobile number"
+                class="ff-inter fs-s book-input-box"
+                required
+                maxlength="10"
+                title = "Invalid phone number"
+                pattern="[6-9]{1}[0-9]{9}"
+              />
+              <br>
+            <div class="form-date">
+              <div><label for="date" class="fs-2s ff-inter">Date:*</label> <!--remove this garbage and add flatpickr-->
+              <input type="date" name="date" id="date" disabled class="ff-inter fs-s book-input-box"></div>
+            </div><!--remove value attr and add required attr to above inputs-->
+            <div class="form-date">
+                <div><label for="start-time" class="fs-2s ff-inter  ">Starting Time:*</label>
+                <input type="time" name="start-time" id="start-time" required class="ff-inter fs-s book-input-box" min="09:00" max="18:00"></div>
+                <div><label for="end-time" class="fs-2s ff-inter  ">Ending Time:*</label>
+                <input type="time" name="end-time" id="end-time" required class="ff-inter fs-s book-input-box" min="09:00" max="18:00"></div>
+            </div><!--remove value attr and add required attr to above inputs-->
+            <div class="form-date">
+              <div><label for="seats" class="fs-2s ff-inter">Seats required:*</label> <!--remove this garbage and add flatpickr-->
+              <input type="number" inputmode="numeric" required name="seats" id="seats" class="ff-inter fs-s book-input-box"></div>
+              <div><label for="guest" class="fs-2s ff-inter">Chief guest:</label> <!--remove this garbage and add flatpickr-->
+              <input type="text" name="guest" id="guest" class="ff-inter fs-s book-input-box"></div>
+            </div>
+            <label for="purpose" class="ff-inter fs-2s">Purpose of booking:*</label>
+            <textarea name="purpose" id="purpose" cols="30" rows="10" required class="ff-inter" style="padding: 1rem"></textarea>
+      
+            <div><input type="checkbox" name="agree" id="agree" style="margin-right: 1rem" required><label for="agree" class="ff-inter fs-2s fw-500">Hereby, I agree that the above details are true to the best of my knowledge and that I am accountable for misinformation</label></div>
+            <button type="submit" class="butt-main sign-in ff-inter fs-2s submit">Confirm booking</button>
+        </form>
+    </div>
+
+    <div class="msg-box msg-box-hidden">
+    </div>
+    
+</body>
+</html>

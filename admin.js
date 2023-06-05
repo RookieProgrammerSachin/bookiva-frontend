@@ -9,7 +9,7 @@ document.querySelector(".user-nav").addEventListener("click", (e)=>{
 });
 
 onAuthStateChanged(auth, async (user)=>{
-    if (user.uid === "7JiwkV5dfQO602p5RuGLlOu7Av82"){
+    if (user && user.uid === "7JiwkV5dfQO602p5RuGLlOu7Av82"){
         userMenu.children[0].innerHTML = `
             <h3 class="ff-inter">Welcome, ${user.displayName || user.email}</h3>
             <a class="ff-inter fs-2s user-menu-link log-out" href="#">Log out</a>
@@ -24,6 +24,8 @@ onAuthStateChanged(auth, async (user)=>{
         }
 
         renderTables();
+    }else{
+        location.href = '/';
     }
 });
 
@@ -56,7 +58,7 @@ const clearMsg = () => {
 const getData = async () => {
 
     try {    
-        const adminFetchData = await fetch("http://localhost:3000/api/admin-data", {
+        const adminFetchData = await fetch("https://frail-puce-wear.cyclic.app/api/admin-data", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -240,7 +242,7 @@ const denyRequest = async (node) => {
     // and remove that specific reservation from pending doc with arrayRemove()?
     // create API endpoints
     try {
-        await fetch("http://localhost:3000/api/admin-deny",{
+        await fetch("https://frail-puce-wear.cyclic.app/api/admin-deny",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -265,7 +267,7 @@ const acceptRequest = async (node) => {
     // and remove that specific reservation from pending doc with arrayRemove()?
     // create API endpoints
     try {
-        await fetch("http://localhost:3000/api/admin-accept",{
+        await fetch("https://frail-puce-wear.cyclic.app/api/admin-accept",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
