@@ -279,6 +279,7 @@ const createDeniedTableRow = (sno, hallName, reservationId, requestedBy, date, s
 const denyRequest = async (node, from) => {
     const rId = node.parentNode.parentNode.dataset.reservationid;
     console.log(rId);
+    node.classList.add("disabled");
     // fetch API call for adding to denied document
     // and remove that specific reservation from pending doc with arrayRemove()?
     // create API endpoints
@@ -305,6 +306,7 @@ const denyRequest = async (node, from) => {
 const acceptRequest = async (node, from) => {
     const rId = node.parentNode.parentNode.dataset.reservationid;
     console.log(rId);
+    node.classList.add("disabled");
     // fetch API call for adding to accpeted document
     // and remove that specific reservation from pending doc with arrayRemove()?
     // create API endpoints

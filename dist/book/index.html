@@ -10,7 +10,7 @@
     
     
     <script src="https://unpkg.com/feather-icons"></script>
-  <script type="module" crossorigin src="/assets/book-1764ba6d.js"></script>
+  <script type="module" crossorigin src="/assets/book-358a2db9.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/config-58d19dce.js">
   <link rel="stylesheet" href="/assets/config-80d9e860.css">
 </head>
@@ -89,13 +89,15 @@
                 <input type="time" name="end-time" id="end-time" required class="ff-inter fs-s book-input-box" min="09:00" max="18:00"></div>
             </div><!--remove value attr and add required attr to above inputs-->
             <div class="form-date">
-              <div><label for="seats" class="fs-2s ff-inter">Seats required:*</label> <!--remove this garbage and add flatpickr-->
+              <div><label for="seats" class="fs-2s ff-inter seats-needed">Seats required:*</label> <!--remove this garbage and add flatpickr-->
               <input type="number" inputmode="numeric" required name="seats" id="seats" class="ff-inter fs-s book-input-box"></div>
               <div><label for="guest" class="fs-2s ff-inter">Chief guest:</label> <!--remove this garbage and add flatpickr-->
               <input type="text" name="guest" id="guest" class="ff-inter fs-s book-input-box"></div>
             </div>
             <label for="purpose" class="ff-inter fs-2s">Purpose of booking:*</label>
-            <textarea name="purpose" id="purpose" cols="30" rows="10" required class="ff-inter" style="padding: 1rem"></textarea>
+            <input type="text" name="purpose" id="purpose" required class="ff-inter fs-2s" style="padding: 1rem"></input>
+            <label for="refreshments" class="ff-inter fs-2s">Refreshments needed:*</label>
+            <input type="text" name="refreshments" id="refreshments" required class="ff-inter fs-2s" style="padding: 1rem"></input>
       
             <div><input type="checkbox" name="agree" id="agree" style="margin-right: 1rem" required><label for="agree" class="ff-inter fs-2s fw-500">Hereby, I agree that the above details are true to the best of my knowledge and that I am accountable for misinformation</label></div>
             <button type="submit" class="butt-main sign-in ff-inter fs-2s submit">Confirm booking</button>
