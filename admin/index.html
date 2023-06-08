@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="/utility.css">
     <link rel="stylesheet" href="/mobile.css">
     <script src="https://unpkg.com/feather-icons"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
 </head>
 <body>
     <nav class="navv-main">
@@ -54,24 +57,26 @@
                 <br>
                 <table id="admin-pending-records">
                     <thead>
-                      <tr>
-                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">S.No.</th>
-                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Hall name</th>
-                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Requested by</th>
-                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Date</th>
-                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Start Time</th>
-                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">End Time</th>
-                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Guest</th>
-                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Seats</th>
-                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Purpose</th>
-                        <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Refreshments</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Table rows will be dynamically added here -->
-                </tbody>
+                        <tr>
+                            <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">S.No.</th>
+                            <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Hall name</th>
+                            <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Requested by</th>
+                            <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Date</th>
+                            <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Start Time</th>
+                            <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">End Time</th>
+                            <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Guest</th>
+                            <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Seats</th>
+                            <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Purpose</th>
+                            <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Refreshments</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Table rows will be dynamically added here -->
+                    </tbody>
             </table>
+            <br>
+            <button class="excel-btn fs-2s" onclick="downloadExcel('admin-pending-records')">Download Excel</button>
         </div>
         <div class="admin-data-record admin-data-hidden" data-state="accepted">
             <h1 class="ff-inter">Accepted booking requests:</h1>
@@ -97,6 +102,8 @@
                     <!-- Table rows will be dynamically added here -->
                 </tbody>
             </table>
+            <br>
+            <button class="excel-btn fs-2s" onclick="downloadExcel('admin-allowed-records')">Download Excel</button>
         </div>
             <div class="admin-data-record admin-data-hidden" data-state="denied">
                 <h1 class="ff-inter">Denied booking requests:</h1>
@@ -116,19 +123,29 @@
                             <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Purpose</th>
                             <th class="ff-inter fs-2s" style="border-right: 1px solid silver;">Refreshments</th>
                             <th></th>
-                      </tr>
+                        </tr>
                     </thead>
                     <tbody>
                         <!-- Table rows will be dynamically added here -->
                     </tbody>
                 </table>
+                <br>
+                <button class="excel-btn fs-2s" onclick="downloadExcel('admin-denied-records')">Download Excel</button>
             </div>
         </div>
     </div>
 
     <div class="msg-box msg-box-hidden">
     </div>
-
+    <script>
+        const downloadExcel = (tableid) => {
+            const table = document.getElementById(tableid);
+            const workbook = XLSX.utils.table_to_book(table, { sheet: 'Sheet 1' });
+            const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            saveAs(blob, `${tableid}.xlsx`);
+        }
+    </script>
     <script type="module" src="/admin.js"></script>
 </body>
 </html>

@@ -664,3 +664,11 @@ tr:nth-child(even) {
     align-items: center;
     gap: 0.2rem;
 }
+
+.excel-btn{
+    padding: 1rem 1.5rem;
+    background-color: #272727;
+    color: #dddddd;
+    border-radius: 5px;
+    cursor: pointer;
+}

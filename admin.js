@@ -280,6 +280,7 @@ const denyRequest = async (node, from) => {
     const rId = node.parentNode.parentNode.dataset.reservationid;
     console.log(rId);
     node.classList.add("disabled");
+    node.innerHTML = `<span class="loader" style="border-top: 3px solid #fff;height: 20px; width: 20px;"></span>`
     // fetch API call for adding to denied document
     // and remove that specific reservation from pending doc with arrayRemove()?
     // create API endpoints
@@ -307,6 +308,7 @@ const acceptRequest = async (node, from) => {
     const rId = node.parentNode.parentNode.dataset.reservationid;
     console.log(rId);
     node.classList.add("disabled");
+    node.innerHTML = `<span class="loader" style="border-top: 3px solid #fff;height: 20px; width: 20px;"></span>`
     // fetch API call for adding to accpeted document
     // and remove that specific reservation from pending doc with arrayRemove()?
     // create API endpoints
